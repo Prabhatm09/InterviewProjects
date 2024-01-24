@@ -2,32 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+// CSS for the Carousel component
+.carousel {
+  overflow: hidden;
+  width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease; /* Adjust the transition duration as needed */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.carousel-slide {
+  min-width: 100%; /* Each slide takes up the full width */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.carousel-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
 }
+
+/* Add the rest of your styles as needed */
