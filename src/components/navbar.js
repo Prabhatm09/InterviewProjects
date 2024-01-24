@@ -1,33 +1,34 @@
 "use client";
 
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 const Navbar = ({ onTabChange }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  //   const user = useSelector(selectUser);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    // Check if user is logged in on mount
-    // Retrieve user data from localStorage if needed
+    // Check if window is defined before accessing localStorage
     if (typeof window !== "undefined") {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
       const storedUser = JSON.parse(localStorage.getItem("currentUser"));
 
-      if (isLoggedIn && storedUser) {
-        // Dispatch the user to the Redux store
-        dispatch(setUser(storedUser));
+      if (storedIsLoggedIn && storedUser) {
+        setIsLoggedIn(true);
+        setUser(storedUser);
       }
     }
-  }, [dispatch]);
+  }, []);
 
   const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("currentUser");
-      localStorage.removeItem("isLoggedIn");
-      router.push("/");
-    }
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    setUser(null);
+    router.push("/");
   };
 
   return (
