@@ -7,26 +7,27 @@ import { useEffect } from "react";
 const Navbar = ({ onTabChange }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const user = JSON.parse(localStorage.getItem("currentUser"));
   //   const user = useSelector(selectUser);
   useEffect(() => {
     // Check if user is logged in on mount
     // Retrieve user data from localStorage if needed
-    if (isLoggedIn && !user) {
+    if (typeof window !== "undefined") {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
       const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-      if (storedUser) {
+
+      if (isLoggedIn && storedUser) {
         // Dispatch the user to the Redux store
-        // You may need to have a setUser action in your userSlice
         dispatch(setUser(storedUser));
       }
     }
-  }, [isLoggedIn, user, dispatch]);
+  }, [dispatch]);
 
   const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("isLoggedIn");
-    router.push("/");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("isLoggedIn");
+      router.push("/");
+    }
   };
 
   return (
