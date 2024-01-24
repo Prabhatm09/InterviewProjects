@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Image from "next/image";
 
 const Carousel = () => {
   const images = [
@@ -25,18 +26,21 @@ const Carousel = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 1500,
   };
 
   return (
     <Slider {...settings}>
       {images.map((image, index) => (
-        <div key={index}>
-          <img
+        <div key={index} className="h-[400px] mt-56 w-full">
+          <Image
             src={image}
             alt={`Slide ${index + 1}`}
-            className="object-cover h-[34em] w-full mt-[120px]"
+            width={500}
+            height={500}
+            layout="responsive"
+            className="object-cover w-full h-full"
           />
         </div>
       ))}

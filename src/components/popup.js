@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Popup = ({ product, onClose }) => {
   console.log(product);
   if (!product) {
@@ -8,10 +10,12 @@ const Popup = ({ product, onClose }) => {
     <div className="popup fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4">{product.title}</h2>
-        <img
+        <Image
           src={product.image}
           alt={product.title}
-          className="mb-4 max-w-full h-40 object-cover rounded"
+          width={350}
+          height={350}
+          className="mb-4 object-cover rounded"
         />
         <p>{product.description}</p>
         <button
