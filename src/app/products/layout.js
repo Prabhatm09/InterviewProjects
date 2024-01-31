@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import Navbar from "@/components/navbar";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router"; // Use next/router instead of next/navigation
+import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
 
 // Define the Layout component
 function Layout() {
