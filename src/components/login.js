@@ -63,7 +63,9 @@ const Login = () => {
       // Handle invalid login
     }
 
-    router.push("/products");
+    router.push({
+      pathname: "/products",
+    });
   };
 
   return (

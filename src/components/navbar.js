@@ -26,7 +26,9 @@ const Navbar = ({ onTabChange }) => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
     setUser(null);
-    router.push("/");
+    router.push({
+      pathname: "/",
+    });
   };
 
   return (

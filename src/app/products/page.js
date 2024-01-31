@@ -25,7 +25,9 @@ function Layout() {
   // Redirect to the login page if not logged in
   useEffect(() => {
     if (!isLoggedIn) {
-      router.push("/");
+      router.push({
+        pathname: "/",
+      });
     }
   }, [isLoggedIn, router]);
 

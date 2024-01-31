@@ -71,7 +71,9 @@ const Signup = ({ setActiveTab }) => {
 
       // Dispatch the user to the Redux store
       dispatch(setUser(newUser));
-      router.push("/");
+      router.push({
+        pathname: "/",
+      });
     }
   };
 
