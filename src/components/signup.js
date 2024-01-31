@@ -33,43 +33,46 @@ const Signup = ({ setActiveTab }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Retrieve existing users from localStorage
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    // Check if the window object is defined before accessing localStorage
+    if (typeof window !== "undefined") {
+      // Retrieve existing users from localStorage
+      const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Check if the username is already taken
-    if (storedUsers.some((user) => user.username === username)) {
-      // Handle username already taken
-      return;
+      // Check if the username is already taken
+      if (storedUsers.some((user) => user.username === username)) {
+        // Handle username already taken
+        return;
+      }
+
+      const newErrors = {};
+      if (!username.trim()) {
+        newErrors.username = "Username is required";
+      }
+      if (!email.trim()) {
+        newErrors.email = "Email is required";
+      }
+      if (!password.trim()) {
+        newErrors.password = "Password is required";
+      }
+
+      if (Object.keys(newErrors).length === 0) {
+        console.log("Signing up...", { username, email, password });
+        // Switch the tab to "login" after successful signup
+        setActiveTab("login");
+      } else {
+        setErrors(newErrors);
+      }
+
+      // Create a new user object
+      const newUser = { username, email, password };
+
+      // Save the new user to localStorage
+      localStorage.setItem("users", JSON.stringify([...storedUsers, newUser]));
+
+      // Dispatch the user to the Redux store
+      dispatch(setUser(newUser));
+      router.push("/");
     }
-
-    const newErrors = {};
-    if (!username.trim()) {
-      newErrors.username = "Username is required";
-    }
-    if (!email.trim()) {
-      newErrors.email = "Email is required";
-    }
-    if (!password.trim()) {
-      newErrors.password = "Password is required";
-    }
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Signing up...", { username, email, password });
-      // Switch the tab to "login" after successful signup
-      setActiveTab("login");
-    } else {
-      setErrors(newErrors);
-    }
-
-    // Create a new user object
-    const newUser = { username, email, password };
-
-    // Save the new user to localStorage
-    localStorage.setItem("users", JSON.stringify([...storedUsers, newUser]));
-
-    // Dispatch the user to the Redux store
-    dispatch(setUser(newUser));
-    router.push("/");
   };
 
   return (
